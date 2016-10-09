@@ -1,0 +1,16 @@
+# live setup
+set imap_user = ""
+set imap_pass = ""
+set smtp_url = "smtp://thedead4fun@live.com@smtp.live.com:587/"
+set smtp_pass = ""
+set from = "" # email here
+set realname = "Mateusz Żochowski"
+set folder = "imaps://imap-mail.outlook.com:993"
+set spoolfile = "+INBOX"
+set postponed = "+[Live]/Drafts"
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+set ssl_force_tls = yes
+set status_format = "$from -%r-Mutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---"
+

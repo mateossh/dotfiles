@@ -10,3 +10,5 @@ plugins=(git last-working-dir bower npm)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.aliases
+
+export PATH=$PATH:"/usr/bin/core_perl:/home/matt/.gem/ruby/2.3.0/bin"

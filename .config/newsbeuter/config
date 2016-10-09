@@ -1,0 +1,21 @@
+auto-reload yes
+browser "chromium %u"
+cleanup-on-quit no
+delete-read-articles-on-quit yes
+max-download-speed 50
+refresh-on-startup yes
+save-path "~/.config/newsbeuter/Saved"
+macro y set browser "mpv %u"; open-in-browser ; set browser "chromium %u"
+show-keymap-hint no
+
+
+## THEME
+
+color background white black
+color listnormal white black
+color listnormal_unread white black
+color listfocus white black
+color listfocus_unread black yellow
+#color info white color236
+color info white black underline
+color article white black

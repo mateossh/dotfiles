@@ -42,7 +42,3 @@ extract () {
         echo "'$1' is not a valid file"
     fi
 }
-
-cph () {
-	cp $1 `pwd`
-}
