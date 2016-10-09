@@ -1,0 +1,58 @@
+URxvt.font: xft:Monospace:size=10:antialias=true
+URxvt.imLocale: en_US.UTF-8
+URxvt.scrollBar: false
+URxvt.letterSpace: -2
+Urxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+URxvt*internalBorder: 24
+
+URxvt.transparent: true
+URxvt.shading: 15
+
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/chromium
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg3
+
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+! HONUKAI COLOR SCHEME FOR RXVT HERE - http://dotshare.it/dots/1141/
+
+!*.background:   #494d56
+*.foreground:   #615752
+*.cursorColor:  #615752
+
+! black
+*.color0:       #000000
+*.color8:       #555555
+
+! red
+*.color1:       #dd5030
+*.color9:       #e17f64
+
+! green
+*.color2:       #6cbd3a
+*.color10:      #7fba5a
+
+! yellow
+*.color3:       #e6d72d
+*.color11:      #ffff55
+
+! blue
+*.color4:       #2670fc
+*.color12:      #5d8ff3
+
+! magenta
+*.color5:       #f258b9
+*.color13:      #fa83c0
+
+! cyan
+*.color6:       #38b2da
+*.color14:      #78cee7
+
+! white
+*.color7:       #bbbbbb
+*.color15:      #ffffff
+
