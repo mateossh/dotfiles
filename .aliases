@@ -1,44 +1,13 @@
-# if not root, pass via sudo
-if [ $UID -ne 0 ]; then
-    alias reboot='sudo reboot'
-fi
-
 alias l="ls -lhgX"
 alias la="ls -lhgaX"
-alias rm="rm -i"
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
-alias nibi='npm install && bower install'
-alias gd="git diff --color | diff-so-fancy"
-alias pyserv="python3 -m http.server 9000"
-alias subl="subl3"
+alias rm="nocorrect rm -i"
+alias mv="nocorrect mv -i"
+alias cp="nocorrect cp -i"
+alias ln="nocorrect ln -i"
+alias cp="cp -r"
 alias copy="xclip -sel clip"
 alias busy="cat /dev/urandom | hexdump -C | grep 'ca ce'"
-alias btc="echo '1 BTC = $(curl -s https://api.coindesk.com/v1/bpi/currentprice/usd.json | grep -o 'rate":"[^"]*' | cut -d\" -f3) USD'"
-
-
-extract () {
-    if [ -f $1 ]; then
-        case $1 in
-            *.tar.bz2)  tar -jxvf $1                        ;;
-            *.tar.gz)   tar -zxvf $1                        ;;
-            *.bz2)      bunzip2 $1                          ;;
-            *.dmg)      hdiutil mount $1                    ;;
-            *.gz)       gunzip $1                           ;;
-            *.tar)      tar -xvf $1                         ;;
-            *.tbz2)     tar -jxvf $1                        ;;
-            *.tgz)      tar -zxvf $1                        ;;
-            *.zip)      unzip $1                            ;;
-            *.ZIP)      unzip $1                            ;;
-            *.pax)      cat $1 | pax -r                     ;;
-            *.pax.Z)    uncompress $1 --stdout | pax -r     ;;
-            *.rar)      unrar x $1                          ;;
-            *.Z)        uncompress $1                       ;;
-            *.7z)       7z x $1                             ;;
-            *)          echo "'$1' cannot be extracted/mounted via extract()" ;;
-        esac
-    else
-        echo "'$1' is not a valid file"
-    fi
-}
+alias newsbeuter="newsbeuter -C ~/.config/newsbeuter/config -u ~/.config/newsbeuter/urls"
+alias n="nnn"
+alias v="vim"
+alias fuck='sudo $(fc -ln -1)'

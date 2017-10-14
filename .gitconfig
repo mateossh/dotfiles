@@ -1,3 +1,9 @@
 [user]
 	email = thedead4fun@live.com
 	name = Mateusz Ż
+
+[core]
+	editor = vim
+
+[url "git@github.com:"]
+	insteadOf = gh:
