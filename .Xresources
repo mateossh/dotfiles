@@ -1,14 +1,13 @@
-URxvt.font: xft:Monospace:size=10:antialias=true
+urxvt*font: xft:Gohu GohuFont:size=11:style=Medium
+!URxvt.font: xft:Monospace:size=10:antialias=true
+
 URxvt.imLocale: en_US.UTF-8
 URxvt.scrollBar: false
-URxvt.letterSpace: -2
+!URxvt.letterSpace: -2
 Urxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
-URxvt*internalBorder: 24
-
-URxvt.transparent: true
-URxvt.shading: 15
+URxvt*internalBorder: 16
 
 URxvt.perl-ext-common: default,matcher
 URxvt.url-launcher: /usr/bin/chromium
@@ -18,41 +17,79 @@ URxvt.matcher.rend.0: Uline Bold fg3
 URxvt.iso14755: false
 URxvt.iso14755_52: false
 
-! HONUKAI COLOR SCHEME FOR RXVT HERE - http://dotshare.it/dots/1141/
+! Hybrid Terminal Colours. Uses the palette from Tomorrow-Night:
+! https://github.com/chriskempson/tomorrow-theme/blob/master/vim/colors/Tomorrow-Night.vim
+! vim: ft=xdefaults
 
-!*.background:   #494d56
-*.foreground:   #615752
-*.cursorColor:  #615752
-
+*background: #1C1C1C
+*foreground: #C5C8C6
 ! black
-*.color0:       #000000
-*.color8:       #555555
-
+*color0: #282A2E
+*color8: #373B41
 ! red
-*.color1:       #dd5030
-*.color9:       #e17f64
-
+*color1: #A54242
+*color9: #CC6666
 ! green
-*.color2:       #6cbd3a
-*.color10:      #7fba5a
-
+*color2: #8C9440
+*color10: #B5BD68
 ! yellow
-*.color3:       #e6d72d
-*.color11:      #ffff55
-
+*color3: #DE935F
+*color11: #F0C674
 ! blue
-*.color4:       #2670fc
-*.color12:      #5d8ff3
-
+*color4: #5F819D
+*color12: #81A2BE
 ! magenta
-*.color5:       #f258b9
-*.color13:      #fa83c0
-
+*color5: #85678F
+*color13: #B294BB
 ! cyan
-*.color6:       #38b2da
-*.color14:      #78cee7
-
+*color6: #5E8D87
+*color14: #8ABEB7
 ! white
-*.color7:       #bbbbbb
-*.color15:      #ffffff
+*color7: #707880
+*color15: #C5C8C6
 
+
+! HONUKAI COLOR SCHEME FOR RXVT HERE - http://dotshare.it/dots/1141/
+!*.background:   #494d56
+!*.foreground:   #615752
+!*.cursorColor:  #615752
+! black
+!*.color0:       #000000
+!*.color8:       #555555
+! red
+!*.color1:       #dd5030
+!*.color9:       #e17f64
+! green
+!*.color2:       #6cbd3a
+!*.color10:      #7fba5a
+! yellow
+!*.color3:       #e6d72d
+!*.color11:      #ffff55
+! blue
+!*.color4:       #2670fc
+!*.color12:      #5d8ff3
+! magenta
+!*.color5:       #f258b9
+!*.color13:      #fa83c0
+! cyan
+!*.color6:       #38b2da
+!*.color14:      #78cee7
+! white
+!*.color7:       #bbbbbb
+!*.color15:      #ffffff
+
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #FAC863 ,  #1B2B34
+! Color scheme for urgent row
+rofi.color-urgent:                   argb:00000000,  #F99157 , argb:00000000,  #F99157 ,  #1B2B34
+! Color scheme for active row
+rofi.color-active:                   argb:00000000,  #6699CC , argb:00000000,  #6699CC ,  #1B2B34
+! Color scheme window
+rofi.color-window:                   argb:ee222222,  #FAC863 ,  #FAC863
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid
