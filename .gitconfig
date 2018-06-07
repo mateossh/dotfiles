@@ -3,7 +3,11 @@
 	name = Mateusz Ż
 
 [core]
-	editor = vim
+  editor = vim
 
 [url "git@github.com:"]
-	insteadOf = gh:
+  insteadOf = gh:
+
+
+[url "git@gitlab.com:"]
+  insteadOf = gl:
