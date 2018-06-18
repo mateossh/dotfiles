@@ -1,5 +1,6 @@
 #!/bin/sh
 
+xmodmap ~/.Xmodmap &
 setxkbmap -layout pl &
 wallpaper &
 compton &
