@@ -1,7 +1,6 @@
 #!/bin/sh
 
-xmodmap ~/.Xmodmap &
-setxkbmap -layout pl &
+setxkbmap -layout pl -option caps:escape &
 wallpaper &
 compton &
 bar &
@@ -10,3 +9,4 @@ juiced -d &
 # urxvtd -q -f -o & # now i'm using st
 
 exec openbox-session
+#exec dwm
