@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     haskell
      sql
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
@@ -71,12 +72,13 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(all-the-icons
                                       doom-themes
-                                      tabbar
+                                      doom-modeline
                                       rjsx-mode
                                       flycheck
                                       ini-mode
                                       vala-mode
                                       writeroom-mode
+                                      vue-mode
                                       editorconfig)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -157,12 +159,20 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    ;; dotspacemacs-default-font '("MonofurForPowerline Nerd Font"
-   dotspacemacs-default-font '("Fira Code"
+   ;; dotspacemacs-default-font '("Fira Code"
+   ;; dotspacemacs-default-font '("AurulentSansMono Nerd Font"
+   dotspacemacs-default-font '("FantasqueSansMono Nerd Font"
                                ;; :size 12
-                               :size 13
+                               :size 14
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
+   ;; dotspacemacs-default-font '("CodeNewRoman Nerd Font"
+   ;;                             ;; :size 12
+   ;;                             :size 14
+   ;;                             :weight normal
+   ;;                             :width normal
+   ;;                             :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -285,13 +295,13 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers t
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
-   dotspacemacs-smartparens-strict-mode t
+   dotspacemacs-smartparens-strict-mode nil
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -307,6 +317,7 @@ values."
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   ;; dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
@@ -328,8 +339,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
   (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t
-        doom-one-padded-modeline 6)
+        doom-themes-enable-italic t)
   )
 
 (defun dotspacemacs/user-config ()
@@ -339,7 +349,19 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq-default line-spacing 4)
+  (add-to-list 'load-path "~/.emacs.d/custom-packages/")
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/custom-packages/emacs-doom-themes/themes/")
+  ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/custom-packages/emacs-doom-themes-original/themes/")
+
+  ;; Fix for dwm tiling (I guess)
+  (add-to-list
+   'default-frame-alist
+   '(fullscreen . maximized))
+
+  (setq frame-resize-pixelwise 't)
+
+
+  (setq-default line-spacing 8)
   (setq powerline-default-separator 'nil)
 
   (setq web-mode-markup-indent-offset 2)
@@ -347,16 +369,21 @@ you should place your code here."
   (setq web-mode-code-indent-offset 2)
   (setq js-indent-level 2)
 
-
   (setq org-default-notes-file "~/Documents/todo.org")
   (setq org-todo-keywords
-        '((sequence "TODO" "WAITING" "SOMEDAY" "IN-PROGRESS" "DELAYED" "ABANDONED" "DONE")))
+        '((sequence "TODO" "WAITING" "CONSIDERING" "IN-PROGRESS" "SOMEDAY" "DELAYED" "ABANDONED" "DONE")))
   (setq org-todo-keyword-faces
-        '(("WAITING" . (:foreground "yellow" :weight "bold"))
-          ("IN-PROGRESS" . (:foreground "orange" :weight "bold"))
-          ("ABANDONED" . (:foreground "red" :weight "bold"))
-          ("DONE" . (:foreground "green" :weight "bold"))
-          ("DELAYED" . (:foreground "red" :weight "bold"))))
+        '(("TODO" . (:foreground "#22ABF5"))
+          ("WAITING" . (:foreground "#EBE84B" :weight "bold"))
+          ("IN-PROGRESS" . (:foreground "#EBA84B" :weight "bold"))
+          ("SOMEDAY" . (:foreground "#FFB0EF" :weight "bold"))
+          ("DELAYED" . (:foreground "#FA1E1E" :weight "bold"))
+          ("ABANDONED" . (:foreground "#824848" :weight "bold" :strike-through t ))
+          ("DONE" . (:foreground "#4BEB6B" :weight "bold"))))
+
+  (setq neo-hidden-regexp-list '("^\\." "\\.cs\\.meta$" "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o"))
+
+  (add-to-list 'auto-mode-alist '("components\\/.*\\.js\\'" . rjsx-mode))
 
   (use-package editorconfig
     :ensure t
@@ -366,24 +393,36 @@ you should place your code here."
   (doom-themes-neotree-config)
   (doom-themes-org-config)
 
-  (use-package tabbar)
+  (doom-modeline-init)
+  (setq doom-modeline-bar-width 1)
+  (setq doom-modeline-height 32)
+  (setq doom-modeline-buffer-file-name-style 'file-name)
+  (setq doom-modeline-persp-name nil)
+
+  (setq tramp-default-method "ssh")
+
+  (setq display-line-numbers-mode 't)
+  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'css-mode-hook 'rainbow-mode)
   (add-hook 'sh-mode-hook 'flycheck-mode)
 
-  ; don't use yasnippets in term mode
-  (add-hook 'term-mode-hook (lambda ()
-                              (yas-minor-mode -1)))
+  ;; (global-display-line-numbers-mode)
+
+  ;; Rebind toggle folding to "f" in normal mode
+  (define-key evil-normal-state-map "f" "za")
 
   (setq yas-snippet-dirs
         '("~/.emacs.d/snippets"))
-
   (yas-global-mode 1)
+  ;; Don't use yasnippets in term mode
+  (add-hook 'term-mode-hook (lambda ()
+                              (yas-minor-mode -1)))
 
-  (spaceline-toggle-buffer-size-off)
-  (spaceline-toggle-minor-modes-off)
-  (spaceline-toggle-purpose-off)
+  ;; (spaceline-toggle-buffer-size-off)
+  ;; (spaceline-toggle-minor-modes-off)
+  ;; (spaceline-toggle-purpose-off)
 
   (setq backward-delete-char-untabify-method 'hungry)
 
@@ -396,9 +435,16 @@ you should place your code here."
   (setq whitespace-display-mappings
         '((tab-mark 9 [124 9] [92 9]))) ; 124 is the ascii ID for '\|'
   (global-whitespace-mode) ; Enable whitespace mode everywhere
-                                        ; END TABS CONFIG
-
   )
+
+(defalias 'zen-mode 'writeroom-mode)
+
+(defun sudo-save()
+  "Use TRAMP to open a file with write access using sudo."
+  (interactive)
+  (if (not buffer-file-name)
+      (write-file (concat "/sudo:root@localhost:" (ido-read-file-name)))
+    (write-file (concat "/sudo:root@localhost:" (buffer-file-name)))))
 
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -410,7 +456,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" default)))
+    ("6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "7e78a1030293619094ea6ae80a7579a562068087080e01c2b8b503b27900165c" "6f4a79f5378b8d2d364f8fabc7fd3223344f1456623cff9cc15663b1e8632b17" "56170042289fda942df82f445fad9279affb857363b6d84b1935c044cb333c33" "d67876b806b1f4f9bc2f8a0062cd7b65bfbf9373acfec213f4c18556e05b9c53" "4609dfdd9cfc97d7c965ed0bca83d45116a4731e37fb9b1cf59704b93d1737e1" "3bd07c323f90cfcfab3b40815417c2a4eed949491a61142a2a404ad6ab872fe4" "991edc3e2ae4026b2b5d9f73ea60e4e350cf3df65885e01e385125ee0e59c95d" "069d17859272c5c9f14ae92e6ba8a1017aaf87018b4d889c9470bbc6ccd2b175" "5c12b593be2007561c4745deb9709d3c0aaadcf4209fca72dce1f253a2c1dfa6" "a253b8f92ed1a77f179c1069c74cdcba2e62c428798c7f46062aa23efdb94ea1" "f4469be21de9e2b76148b49d46df0b4a70527d1dd20cc9a537ea56a7285125e3" "38c902b222a98a2d4efd935d9474e296841507de51b1261538ee08a37ae180d1" "9d9fda57c476672acd8c6efeb9dc801abea906634575ad2c7688d055878e69d6" default)))
  '(evil-want-Y-yank-to-eol nil)
  '(fci-rule-color "#5B6268" t)
  '(jdee-db-active-breakpoint-face-colors (cons "#1B2229" "#51afef"))
@@ -418,7 +464,7 @@ you should place your code here."
  '(jdee-db-spec-breakpoint-face-colors (cons "#1B2229" "#3f444a"))
  '(package-selected-packages
    (quote
-    (sql-indent magit-todos vala-mode powerline pcre2el org-category-capture alert log4e gntp org-plus-contrib markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode hydra parent-mode projectile request haml-mode gitignore-mode pkg-info epl flx magit magit-popup git-commit ghub with-editor smartparens iedit anzu evil goto-chg highlight dash-functional go-mode inf-ruby bind-map bind-key yasnippet packed pythonic helm avy helm-core async popup f s php-mode writeroom-mode zencoding-mode ini-mode emoji-cheat-sheet-plus company-emoji company-quickhelp pos-tip helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern company-statistics company-go company-anaconda auto-yasnippet ac-ispell auto-complete company yasnippet-snippets flycheck vimrc-mode dactyl-mode rjsx-mode tabbar doom-themes atom-one-dark-theme yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tern tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump drupal-mode diminish define-word cython-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile anaconda-mode all-the-icons aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (doom-outrun-electric-theme intero hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode doom-snazzy-theme jsx-mode ssass-mode vue-html-mode vue-mode doom-modeline sql-indent magit-todos vala-mode powerline pcre2el org-category-capture alert log4e gntp org-plus-contrib markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode hydra parent-mode projectile request haml-mode gitignore-mode pkg-info epl flx magit magit-popup git-commit ghub with-editor smartparens iedit anzu evil goto-chg highlight dash-functional go-mode inf-ruby bind-map bind-key yasnippet packed pythonic helm avy helm-core async popup f s php-mode writeroom-mode zencoding-mode ini-mode emoji-cheat-sheet-plus company-emoji company-quickhelp pos-tip helm-company helm-c-yasnippet fuzzy company-web web-completion-data company-tern company-statistics company-go company-anaconda auto-yasnippet ac-ispell auto-complete company yasnippet-snippets flycheck vimrc-mode dactyl-mode rjsx-mode tabbar doom-themes atom-one-dark-theme yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tern tagedit spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets persp-mode paradox orgit org-projectile org-present org-pomodoro org-mime org-download org-bullets open-junk-file neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode live-py-mode linum-relative link-hint json-mode js2-refactor js-doc indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav editorconfig dumb-jump drupal-mode diminish define-word cython-mode column-enforce-mode coffee-mode clean-aindent-mode chruby bundler auto-highlight-symbol auto-compile anaconda-mode all-the-icons aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(vc-annotate-background "#282c34")
  '(vc-annotate-color-map
    (list

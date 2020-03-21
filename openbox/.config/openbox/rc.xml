@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
     <strength>10</strength>
@@ -39,7 +40,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>1977-Grey</name>
+    <name>1977-Gold</name>
     <titleLayout>LIMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -290,11 +291,6 @@
     <keybind key="W-space">
       <action name="Execute">
         <command>rofi -show run</command>
-      </action>
-    </keybind>
-    <keybind key="W-Down">
-      <action name="Execute">
-        <command>center</command>
       </action>
     </keybind>
     <keybind key="A-S-3">

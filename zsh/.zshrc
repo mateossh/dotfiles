@@ -7,12 +7,15 @@ export GOPATH=$HOME/.go
 export QT_DIR=/usr/include/qt
 export PATH=$PATH:"$ANDROID_HOME/tools"
 export PATH=$PATH:"$ANDROID_HOME/platform-tools"
+export PATH=$PATH:"$ANDROID_HOME/emulator"
+export PATH=$PATH:"$ANDROID_HOME/tools/bin"
 export PATH=$PATH:"$GOPATH/bin"
 export PATH=$PATH:"/usr/bin/core_perl"
-export PATH=$PATH:"$HOME/.gem/ruby/2.4.0/bin"
+export PATH=$PATH:"$HOME/.gem/ruby/2.6.0/bin"
 export PATH=$PATH:"$HOME/.scripts"
 export PATH=$PATH:"$HOME/.npm/global-modules/bin"
 export PATH=$PATH:"$HOME/.cask/bin"
+export PATH=$PATH:"$HOME/.local/bin"
 export PATH=$PATH:"/usr/lib/go/bin"
 
 ZSH_THEME="matt"

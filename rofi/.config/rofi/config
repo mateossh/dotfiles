@@ -1,1 +1,7 @@
-rofi.theme: ~/.config/rofi/colors-rofi-dark.rasi
+#rofi.theme: ~/.config/rofi/theme.rasi
+rofi.color-enabled:                  true
+rofi.color-normal:                   argb:00000000,  #D8DEE9 , argb:00000000,  #FAC863 ,  #1B2B34
+rofi.color-urgent:                   argb:00000000,  #F99157 , argb:00000000,  #F99157 ,  #1B2B34
+rofi.color-active:                   argb:00000000,  #6699CC , argb:00000000,  #6699CC ,  #1B2B34
+rofi.color-window:                   argb:ee222222,  #FAC863 ,  #FAC863
+rofi.separator-style:                solid

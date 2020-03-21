@@ -1,0 +1,6 @@
+setxkbmap -layout pl -option caps:escape &
+#wallpaper &
+#compton &
+#bar &
+redshift &
+juiced -d &
