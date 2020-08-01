@@ -3,11 +3,13 @@
 	name = Mateusz Ż
 
 [core]
-  editor = vim
+  editor = nvim
 
 [url "git@github.com:"]
   insteadOf = gh:
 
-
 [url "git@gitlab.com:"]
   insteadOf = gl:
+
+[init]
+	defaultBranch = main
