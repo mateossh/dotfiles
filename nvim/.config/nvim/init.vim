@@ -7,6 +7,7 @@
 call plug#begin('~/.local/share/nvim/site/plugged')
 
 Plug 'joshdick/onedark.vim'
+Plug 'tek256/simple-dark'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -43,6 +44,7 @@ set shiftwidth=2		" set << >> indent width to 2
 set expandtab			" changes tabs to spaces ???
 set smartindent
 set smartcase     " searching case sensitive
+set foldmethod=manual
 
 set noswapfile
 set nobackup
@@ -50,10 +52,9 @@ set nowritebackup
 "set undodir=~/.vim/undodir
 "set undofile
 
-set foldmethod=syntax
-
 syntax on
-colorscheme onedark
+" colorscheme onedark
+colorscheme simple-dark
 
 set list
 set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵
@@ -66,6 +67,8 @@ let mapleader="\<Space>"
 
 " edit vimrc/nvim config
 nnoremap <leader>fed :e $MYVIMRC<cr>	
+nnoremap <leader>fer :so $MYVIMRC<cr>
+
 " Close pane 
 noremap <leader>bd :bd<Cr>
 
