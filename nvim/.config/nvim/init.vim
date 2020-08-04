@@ -16,9 +16,13 @@ Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 Plug 'ap/vim-css-color'
 Plug 'evanleck/vim-svelte'
@@ -90,6 +94,13 @@ nnoremap <leader>wd :close<cr>
 
 " open empty buffer
 nnoremap <leader>bN :enew<cr>
+
+" git shortcuts
+nnoremap <leader>gc :Gcommit --verbose<cr>
+nnoremap <leader>gC :Gcommit --verbose --amend<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gl :GV<cr>
 
 " CoC jump to definition <spc>jd
 
